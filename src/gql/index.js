@@ -1,5 +1,26 @@
 const { ApolloServer, UserInputError, gql } = require('apollo-server')
 const { v4: uuidv4 } = require('uuid')
+const Person = require('../models/person')
+
+const MONGODB_URI = "mongodb+srv://admin:test123@cluster0.83slw.mongodb.net/<dbname>?retryWrites=true&w=majority"
+
+console.log('connection to', MONGODB_URI)
+
+const options = {
+  useNewUrlParser: true, 
+  useUnifiedTopology: true, 
+  useFindAndModify: false, 
+  useCreateIndex: true
+}
+
+mongoose.connect(MONGODB_URI, options)
+  .then(() => {
+    console.log('connected to M_DB')
+  })
+  .catch((error) => {
+    console.log('error connecting to DB', error.message)
+  })
+  
 
 let persons = [
   {
